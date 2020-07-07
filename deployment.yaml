@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: curl-docker
+  labels:
+    app: curl-docker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: curl-docker
+  template:
+    metadata:
+      labels:
+        app: curl-docker
+    spec:
+      containers:
+      - name: curl
+        image: docker.io/femiosinowo/curl-docker:v1.0
+        env:
+          - name: FRONTEND_ADDR
+            value: "https://productpage-bookinfo.apps.paosin.local/productpage?u=test"
+          - name: SLEEP_SECS
+            value: '3'
